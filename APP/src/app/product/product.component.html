@@ -1,0 +1,85 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Product</h1>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title" style="padding-top: 5px;">
+                <i class="fas fa-bars"></i>
+                Product
+              </h3>
+              <!-- /.card-header -->
+              <button type="button" #btnModalOpen class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#createCustomerModal" (click)="Create()">
+                <i class="fas fa-plus-circle"></i> Create Product
+              </button>
+              <!-- <button #btnEditShow type="button" style="display: none;" (click)="EditShow()"></button> -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table #dataTable class="table table-bordered table-striped" style="width: 100%;">
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+  </section>
+  <!-- /.content -->
+  <div class="modal fade" id="createCustomerModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{header}}</h4>
+          <button #btnClose type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form [formGroup]="productForm" (ngSubmit)= "saveProduct()">
+          <div class="modal-body">
+            <div class="card-body">
+              <div class="form-group has-feedback">
+                <label for="productName">Product Name<span style="color: red;">*</span></label>
+                <input type="text" class="form-control" [ngClass]="{ 'is-invalid': productForm.get('VProductName')?.errors && productForm.get('VProductName')?.touched }" formControlName="VProductName" placeholder="Product Name">
+                <div class="invalid-feedback" *ngIf="productForm.get('VProductName')?.errors && productForm.get('VProductName')?.touched">You can't leave this empty.</div>
+              </div>
+              <div class="form-group has-feedback">
+                <label for="productPrice">Product Price<span style="color: red;">*</span></label>
+                <input type="text" class="form-control" [ngClass]="{ 'is-invalid': productForm.get('NProductPrice')?.errors && productForm.get('NProductPrice')?.touched }" formControlName="NProductPrice" placeholder="Product Price">
+                <div class="invalid-feedback" *ngIf="productForm.get('NProductPrice')?.errors && productForm.get('NProductPrice')?.touched">You can't leave this empty.</div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="Close()">
+              <i class="fas fa-window-close"></i>
+                Close
+            </button>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save"></i>
+                Save
+            </button>
+          </div>
+        </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Sales</h1>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  
+  
+<!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fas fa-envelope"></i>
+                Sales
+              </h3>
+              <!-- /.card-header -->
+              <button type="button" class="btn btn-primary btn-sm float-right" [hidden]="!isBtnCreateShow" (click)="Create()">
+              <i class="fas fa-plus-circle"></i> Create Sales
+              </button>
+              <button #btnEditShow type="button" style="display: none;" (click)="EditShow()"></button>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body" [hidden]="!isDataGridShow">
+              <table #dataTable class="table table-bordered table-striped" style="width: 100%;">
+              </table>
+            </div>
+            <!-- /.card-body -->
+  
+            <div class="card-body" [hidden]="isDataGridShow">
+              <form [formGroup]="saleForm" (ngSubmit)= "SaveSale()">
+                <div class="card-body row">
+                  <div class="col-4 form-group">
+                    <label for="Customer Id">Customer<span style="color: red;">*</span></label>
+                    <ng-select2 [data]="customers" required="true" (click)="saleForm.controls.VCustomerId" [ngClass]="{ 'is-invalid': saleForm.get('VCustomerId')?.errors && saleForm.get('VCustomerId')?.touched }" id="VCustomerId" formControlName="VCustomerId"></ng-select2>
+                    <div class="invalid-feedback" *ngIf="saleForm.get('VCustomerId')?.errors && saleForm.get('VCustomerId')?.touched">You can't leave this empty.</div>
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="InvoiceNo">InvoiceNo</label>
+                    <input rows="4" [ngClass]="{ 'is-invalid': saleForm.get('NInvoiceNo')?.errors && saleForm.get('NInvoiceNo')?.touched }" class="form-control" placeholder="InvoiceNo" formControlName="NInvoiceNo">
+                    <div class="invalid-feedback" *ngIf="saleForm.get('NInvoiceNo')?.errors && saleForm.get('NInvoiceNo')?.touched">You can't leave this empty.</div>
+                  </div>
+                  <div class="col-12 form-group">
+                    <input type="date" [ngClass]="{ 'is-invalid': saleForm.get('DDate')?.errors && saleForm.get('DDate')?.touched }" class="form-control" placeholder="Date" formControlName="DDate">
+                    <div class="invalid-feedback" *ngIf="saleForm.get('DDate')?.errors && saleForm.get('DDate')?.touched">You can't leave this empty.</div>
+                  </div>
+                  <hr class="col-12"/>
+                  <div formArrayName="SalesDetails" class="col-12 row">
+                    <label for="product" class="col-5">Product<span style="color: red;">*</span></label>
+                    <label for="quantity" class="col-2">Quantity<span style="color: red;">*</span></label>
+                    <label for="productprice" class="col-2">Product Price<span style="color: red;">*</span></label>
+                    <div class="col-12 row form-group" *ngFor="let sd of SalesDetails.controls; let i=index" [formGroupName]="i">
+                      <div class="col-5">
+                        <ng-select2 [data]="products" width="auto" required="true" (click)="saleForm.controls.VProductId" class="select2" [ngClass]="{ 'is-invalid': sd.get('VProductId')?.errors && sd.get('VProductId')?.touched }" id="VProductId{{i}}" formControlName="VProductId"></ng-select2>
+                        <div class="invalid-feedback" *ngIf="sd.get('VProductId')?.errors && sd.get('VProductId')?.touched">You can't leave this empty.</div>
+                      </div>
+                      <div class="col-2">
+                        <input type="text" class="form-control" [ngClass]="{ 'is-invalid': sd.get('NQuantity')?.errors && sd.get('NQuantity')?.touched }" placeholder="Quantity" formControlName="NQuantity">
+                        <div class="invalid-feedback" *ngIf="sd.get('NQuantity')?.errors && sd.get('NQuantity')?.touched">You can't leave this empty.</div>
+                      </div>
+                      <div class="col-2">
+                        <input type="text" class="form-control" [ngClass]="{ 'is-invalid': sd.get('NProductPrice')?.errors && sd.get('NProductPrice')?.touched }" placeholder="Product Price" formControlName="NProductPrice">
+                        <div class="invalid-feedback" *ngIf="sd.get('NProductPrice')?.errors && sd.get('NProductPrice')?.touched">You can't leave this empty.</div>
+                      </div>
+                      <div class="col-1" style="text-align:center;">
+                        <a title="Delete" (click)="RemoveSaleDetail(i)"> <i class="fas fa-trash-alt" style="color: red; cursor: pointer;"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-7">
+                    <button type="button" class="btn btn-primary btn-sm" (click)="AddSaleDetail('')">
+                      <i class="fas fa-plus-circle"></i> Add Product
+                    </button>
+                  </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-default" data-dismiss="modal" (click)="Close()">
+                    <i class="fas fa-window-close"></i>
+                    Close
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Save
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+  </section>
+</div>

@@ -1,0 +1,90 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Customer</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+  
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h3 class="card-title" style="padding-top: 5px;">
+                  <i class="fas fa-bars"></i>
+                  Customer
+                </h3>
+                <!-- /.card-header -->
+                <button type="button" #btnModalOpen class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#createCustomerModal" (click)="Create()">
+                  <i class="fas fa-plus-circle"></i> Create Customer
+                </button>
+                <!-- <button #btnEditShow type="button" style="display: none;" (click)="EditShow()"></button> -->
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table #dataTable class="table table-bordered table-striped" style="width: 100%;">
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+    </section>
+    <!-- /.content -->
+    <div class="modal fade" id="createCustomerModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">{{header}}</h4>
+            <button #btnClose type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form [formGroup]="customerForm" (ngSubmit)= "saveCustomer()">
+            <div class="modal-body">
+              <div class="card-body row">
+                <div class="col-lg-6 form-group has-feedback">
+                  <label for="customerFirstName">First Name<span style="color: red;">*</span></label>
+                  <input type="text" class="form-control" [ngClass]="{ 'is-invalid': customerForm.get('VCustomerFirstName')?.errors && customerForm.get('VCustomerFirstName')?.touched }" formControlName="VCustomerFirstName" placeholder="First Name">
+                  <div class="invalid-feedback" *ngIf="customerForm.get('VCustomerFirstName')?.errors && customerForm.get('VCustomerFirstName')?.touched">You can't leave this empty.</div>
+                </div>
+                <div class="col-lg-6 form-group has-feedback">
+                  <label for="customerLastName">Last Name<span style="color: red;">*</span></label>
+                  <input type="text" class="form-control" [ngClass]="{ 'is-invalid': customerForm.get('VCustomerLastName')?.errors && customerForm.get('VCustomerLastName')?.touched }" formControlName="VCustomerLastName" placeholder="Last Name">
+                  <div class="invalid-feedback" *ngIf="customerForm.get('VCustomerLastName')?.errors && customerForm.get('VCustomerLastName')?.touched">You can't leave this empty.</div>
+                </div>
+                <div class="col-lg-6 form-group has-feedback">
+                  <label for="customerAddress">Address<span style="color: red;">*</span></label>
+                    <input type="text" class="form-control" [ngClass]="{ 'is-invalid': customerForm.get('VCustomerAddress')?.errors && customerForm.get('VCustomerAddress')?.touched }" formControlName="VCustomerAddress" placeholder="Address">
+                    <div class="invalid-feedback" *ngIf="customerForm.get('VCustomerAddress')?.errors && customerForm.get('VCustomerAddress')?.touched">You can't leave this empty.</div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal" (click)="Close()">
+                <i class="fas fa-window-close"></i>
+                  Close
+              </button>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i>
+                  Save
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+</div>
